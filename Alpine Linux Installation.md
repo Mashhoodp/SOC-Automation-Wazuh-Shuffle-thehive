@@ -64,5 +64,6 @@ This guide will walk you through the process of installing Alpine Linux on Virtu
 4. **Install Necessary Tools**:
     - Run: `apk add curl sudo`
     - Additional Tools: `git tmux docker docker-cli-compose htop`
+	- For docker use `service docker start` and `rc-update add docker default`
 8. **Verify Installation**:
     - After installation, Alpine Linux should use less than 150 MB of RAM.

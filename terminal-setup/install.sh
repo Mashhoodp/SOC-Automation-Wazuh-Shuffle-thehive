@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Check if zsh and tmux are installed, if not install them
-for pkg in zsh tmux; do
+# Check if neccessare packages are installed, if not install them
+for pkg in zsh tmux jq curl; do
   command -v $pkg >/dev/null 2>&1 || {
     echo "Installing $pkg..."
     sudo apt install -y $pkg
@@ -25,22 +25,23 @@ for repo in \
   zsh-users/zsh-completions \
   zsh-users/zsh-autosuggestions \
   Aloxaf/fzf-tab; do
-  git clone https://github.com/$repo ~/.config/zsh/$(basename $repo)
+  git clone https://github.com/$repo ~/.config/zsh/
 done
 
 # Download and install the latest release of oh-my-posh
-latest_release_info=$(curl -s https://api.github.com/repos/JanDeDobbeleer/oh-my-posh/releases/latest)
+latest_release_info=$(curl -s https://api.github.com/repos/JanDeDobbeleer/oh-my-posh/releases/latest | sed 's/[^[:print:]\t]//g')
 download_url=$(echo $latest_release_info | jq -r '.assets[] | select(.name == "posh-linux-amd64") | .browser_download_url')
 curl -L -o oh-my-posh $download_url
 chmod +x oh-my-posh
 sudo mv oh-my-posh /usr/bin
 
 # Download and install the latest release of fzf
-latest_release_info=$(curl -s https://api.github.com/repos/junegunn/fzf/releases/latest)
+latest_release_info=$(curl -s https://api.github.com/repos/junegunn/fzf/releases/latest | sed 's/[^[:print:]\t]//g')
 download_url=$(echo $latest_release_info | jq -r '.assets[] | select(.name | contains("linux_amd64.tar.gz")) | .browser_download_url')
 curl -L -o fzf.tar.gz $download_url
-tar -xzf fzf.tar.gz -C /usr/bin
-chmod +x /usr/bin/fzf
+tar -xzf fzf.tar.gz
+chmod +x fzf
+sudo mv fzf /usr/bin
 
 # Define the plugin directory and tmux plugins
 PLUGIN_DIR="$HOME/.tmux/plugins"

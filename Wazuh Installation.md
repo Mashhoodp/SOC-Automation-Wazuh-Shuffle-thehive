@@ -1,5 +1,3 @@
-Here's an organized set of instructions to install Wazuh in Markdown format:
-
 # Wazuh Installation Guide
 
 ## Option 1: Using Docker
@@ -28,9 +26,10 @@ Here's an organized set of instructions to install Wazuh in Markdown format:
    ```
 
 5. Start the Wazuh single-node deployment using docker-compose:
-  ```bash
-  docker-compose up -d
-  ```
+   ```
+   docker-compose up -d
+   ```
+  
 
 ## Option 2: Using Debian
 
@@ -108,8 +107,9 @@ Here's an organized set of instructions to install Wazuh in Markdown format:
    ```bash
    curl -so /etc/filebeat/filebeat.yml https://packages.wazuh.com/4.8/tpl/wazuh/filebeat/filebeat.yml
    nano /etc/filebeat/filebeat.yml
-   # Change hosts: ["127.0.0.1:9200"] to ["192.168.44.110:9200"]
    ```
+   Change hosts: `["127.0.0.1:9200"]` to `["192.168.44.110:9200"]`
+   
 
 3. Set up Filebeat keystore:
    ```bash
@@ -182,3 +182,6 @@ Here's an organized set of instructions to install Wazuh in Markdown format:
 5. Configure Wazuh server URL:
    - Edit `/usr/share/wazuh-dashboard/data/wazuh/config/wazuh.yml`
    - Change `url: https://<WAZUH_SERVER_IP_ADDRESS>` to `url: https://192.168.44.110`
+
+## Option 3: Importing OVA file
+You can Download [wazuh-4.8.1.ova](https://packages.wazuh.com/4.x/vm/wazuh-4.8.1.ova) and Import it to your preferred virtual platform.
